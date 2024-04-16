@@ -1,5 +1,7 @@
 const express = require("express");
 const userRouter = require("./components/user/user.routes");
+const flashcardRouter = require("./components/flashcard/flashcard.routes");
+const jumbledLettersRouter = require("./components/jumbled_letters/jumbled_letters.routes");
 const cors = require("cors");
 
 const PORT = 3000;
@@ -11,6 +13,8 @@ app.use(express.urlencoded({ extended: true })); //support for application/x-www
 app.use(cors()); //Cross-Origin Resource Sharing, managing requests from different domains
 
 app.use("/users", userRouter);
+app.use("/flashcards", flashcardRouter);
+app.use("/jumbled-letters", jumbledLettersRouter);
 
 app.get("/", (req, res) => {
   res.send("Don't smoke!");
