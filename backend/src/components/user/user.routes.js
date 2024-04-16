@@ -4,6 +4,6 @@ const { UserService, listUsers } = require("./user.service");
 const userRouter = express.Router();
 
 userRouter.get("/:id", UserService.getUser);
-userRouter.get("/", listUsers);
+userRouter.get("/", UserService.listAllUsers);
 
 module.exports = userRouter;

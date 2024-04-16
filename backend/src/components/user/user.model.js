@@ -20,6 +20,10 @@ class UserDAO {
 
     return user;
   }
+
+  getAllUsers() {
+    return this.database.users;
+  }
 }
 
 module.exports = { User, UserDAO };

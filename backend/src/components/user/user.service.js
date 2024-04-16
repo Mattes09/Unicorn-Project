@@ -14,13 +14,14 @@ const UserService = {
       user: foundUser,
     });
   },
-};
 
-const listUsers = (req, res) => {
-  res.send(database);
+  listAllUsers: (req, res) => {
+    const dao = new UserDAO(database);
+    const users = dao.getAllUsers();
+    res.send({ users: users });
+  },
 };
 
 module.exports = {
   UserService,
-  listUsers,
 };
