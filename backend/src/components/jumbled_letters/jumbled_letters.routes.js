@@ -1,12 +1,9 @@
 const express = require("express");
-const { JumbledLettersService } = require("./jumblet_letters.service");
+const { JumbledLettersService } = require("./jubmled_letters.service");
 
-const jumbledLettersRouter = express.Router();
+jumbledLettersRouter = express.Router();
 
-jumbledLettersRouter.get("/", JumbledLettersService.getAllCards);
-jumbledLettersRouter.get(
-  "/toggle/:id",
-  JumbledLettersService.toggleCardVisibility
-);
+jumbledLettersRouter.get("/card", JumbledLettersService.getCard);
+jumbledLettersRouter.post("/check-answer", JumbledLettersService.checkAnswer);
 
 module.exports = jumbledLettersRouter;

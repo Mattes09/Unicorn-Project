@@ -1,8 +1,5 @@
 const { User } = require("../components/user/user.model");
 const { FlashCard } = require("../components/flashcard/flashcard.model");
-const {
-  JumbledLetterCard,
-} = require("../components/jumbled_letters/jumbled_letters.model");
 
 const users = [
   new User(1, "Daniel", "admin", "email@seznam.cz"),
@@ -18,13 +15,67 @@ const flashcards = [
     "ˈæp.əl",
     "./sounds/apple.mp3"
   ),
+  new FlashCard(
+    2,
+    "Banana",
+    "./pictures/banana.jpg",
+    "bəˈnæn.ə",
+    "./sounds/banana.mp3"
+  ),
+  new FlashCard(
+    3,
+    "Lemon",
+    "./pictures/lemon.jpg",
+    "ˈlem.ən",
+    "./sounds/lemon.mp3"
+  ),
+  new FlashCard(4, "Pear", "./pictures/Pear.jpg", "peər", "./sounds/apple.mp3"),
+
+  new FlashCard(
+    5,
+    "Grapes",
+    "./pictures/grapes.jpg",
+    "ɡreɪps",
+    "./sounds/grapes.mp3"
+  ),
+  new FlashCard(
+    6,
+    "Cherry",
+    "./pictures/cherry.jpg",
+    "ˈʧɛr.i",
+    "./sounds/cherry.mp3"
+  ),
+  new FlashCard(
+    7,
+    "Blueberry",
+    "./pictures/blueberry.jpg",
+    "ˈbluːˌber.i",
+    "./sounds/blueberry.mp3"
+  ),
+  new FlashCard(
+    8,
+    "Blackberry",
+    "./pictures/blackberry.jpg",
+    "ˈblækˌber.i",
+    "./sounds/blackberry.mp3"
+  ),
+  new FlashCard(
+    9,
+    "Raspberry",
+    "./pictures/raspberry.jpg",
+    "ˈræzˌber.i",
+    "./sounds/raspberry.mp3"
+  ),
+
+  new FlashCard(
+    10,
+    "Watermelon",
+    "./pictures/watermelon.jpg",
+    "ˈwɔː.tərˌmel.ən",
+    "./sounds/watermelon.mp3"
+  ),
 ];
 
-const jumbledLetters = [
-  new JumbledLetterCard(1, "../pictures/apple.jpg"),
-  new JumbledLetterCard(2, "../pictures/banana.jpg"),
-];
-
-const database = { users, flashcards, jumbledLetters };
+const database = { users, flashcards };
 
 module.exports = database;

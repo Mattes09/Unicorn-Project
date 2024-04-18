@@ -5,6 +5,8 @@ class FlashCard {
     this.picture = picture;
     this.pronunciation = pronunciation;
     this.audio = audio;
+    this.visible = false;
+    this.matched = false;
   }
 }
 
