@@ -76,6 +76,8 @@ const flashcards = [
   ),
 ];
 
-const database = { users, flashcards };
+const testResults = [];
+
+const database = { users, flashcards, testResults };
 
 module.exports = database;

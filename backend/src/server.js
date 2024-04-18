@@ -4,6 +4,7 @@ const flashcardRouter = require("./components/flashcard/flashcard.routes");
 const pairsRouter = require("./components/pairs/pairs.routes");
 const jumbledLettersRouter = require("./components/jumbled_letters/jumbled_letters.routes");
 const multipleChoiceRouter = require("./components/multiple_choice/multiple_choice.routes");
+const testRouter = require("./components/test/test.routes");
 
 const cors = require("cors");
 
@@ -20,6 +21,7 @@ app.use("/flashcards", flashcardRouter);
 app.use("/pairs", pairsRouter);
 app.use("/jumbled-letters", jumbledLettersRouter);
 app.use("/multiple-choice", multipleChoiceRouter);
+app.use("/test", testRouter);
 
 app.get("/", (req, res) => {
   res.send("Don't smoke!");
