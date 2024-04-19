@@ -1,9 +1,28 @@
 const database = require("../../database/database");
 const { FlashCardDAO } = require("./flashcard.model");
 
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true });
+
+const getFlashCardSchema = {
+  type: "object",
+  properties: {
+    id: { type: "integer", minimum: 1 },
+  },
+  required: ["id"],
+  additionalProperties: false,
+};
+
 const FlashcardService = {
   getFlashcard: (req, res) => {
-    const flashcardId = req.params.id;
+    const validate = ajv.compile(getFlashCardSchema);
+    const valid = validate({ id: parseInt(req.params.id) });
+
+    if (!valid) {
+      return res.status(400).send({ errors: validate.errors });
+    }
+
+    const flashcardId = parseInt(req.params.id);
     const flashcardDao = new FlashCardDAO(database);
     const flashcard = flashcardDao.getFlashCard(flashcardId);
     console.log(flashcard);

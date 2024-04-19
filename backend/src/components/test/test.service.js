@@ -2,6 +2,29 @@ const { FlashCardDAO } = require("../flashcard/flashcard.model");
 const database = require("../../database/database");
 const fs = require("fs");
 const path = require("path");
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true });
+
+const answersSchema = {
+  type: "object",
+  properties: {
+    answers: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "integer", minimum: 1 },
+          userAnswer: { type: "string" },
+        },
+        required: ["id", "userAnswer"],
+      },
+    },
+  },
+  required: ["answers"],
+  additionalProperties: false,
+};
+
+const validate = ajv.compile(answersSchema);
 
 const saveTestResults = (testResult) => {
   const filePath = path.join(__dirname, "../../database/testResults.json");
@@ -36,6 +59,10 @@ const TestService = {
   },
 
   submitAnswers: (req, res) => {
+    if (!validate(req.body)) {
+      return res.status(400).send({ errors: validate.errors });
+    }
+
     const { answers } = req.body;
     const flashcardDao = new FlashCardDAO(database);
     const results = answers.map((answer) => {

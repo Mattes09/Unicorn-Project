@@ -1,5 +1,17 @@
 const { FlashCardDAO } = require("../flashcard/flashcard.model");
 const database = require("../../database/database");
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true });
+
+const answerSchema = {
+  type: "object",
+  properties: {
+    id: { type: "integer", minimum: 1 },
+    userAnswer: { type: "string", minLength: 1 },
+  },
+  required: ["id", "userAnswer"],
+  additionalProperties: false,
+};
 
 function scrambleWord(word) {
   const letters = word.split("");
@@ -27,6 +39,13 @@ const JumbledLettersService = {
   },
 
   checkAnswer: (req, res) => {
+    const validate = ajv.compile(answerSchema);
+    const valid = validate(req.body);
+
+    if (!valid) {
+      return res.status(400).send({ errors: validate.errors });
+    }
+
     const { id, userAnswer } = req.body;
     const flashcardDao = new FlashCardDAO(database);
     const card = flashcardDao.getFlashCard(id);

@@ -1,5 +1,17 @@
 const { FlashCard, FlashCardDAO } = require("../flashcard/flashcard.model");
 const database = require("../../database/database");
+const Ajv = require("ajv");
+const ajv = new Ajv({ allErrors: true });
+
+const matchSchema = {
+  type: "object",
+  properties: {
+    id1: { type: "integer", minimum: 1 },
+    id2: { type: "integer", minimum: 1 },
+  },
+  required: ["id1", "id2"],
+  additionalProperties: false,
+};
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -27,6 +39,11 @@ const PairsService = {
   },
 
   checkMatch: (req, res) => {
+    const validate = ajv.compile(matchSchema);
+    const valid = validate(req.body);
+    if (!valid) {
+      return res.status(400).send({ erros: validate.errors });
+    }
     const { id1, id2 } = req.body;
     const flashcardDao = new FlashCardDAO(database);
     const card1 = flashcardDao.getFlashCard(id1);
