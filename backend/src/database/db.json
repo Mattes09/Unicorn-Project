@@ -1,0 +1,118 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Daniel",
+      "role": "admin",
+      "email": "email@seznam.cz",
+      "favorites": []
+    },
+    {
+      "id": 2,
+      "name": "Matej",
+      "role": "admin",
+      "email": "test@gmail.com",
+      "favorites": []
+    },
+    {
+      "id": 3,
+      "name": "Rumburak",
+      "role": "user",
+      "email": "usr@test.com",
+      "favorites": []
+    }
+  ],
+  "flashcards": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "picture": "./pictures/apple.jpg",
+      "pronunciation": "ˈæp.əl",
+      "audio": "./sounds/apple.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 2,
+      "name": "Banana",
+      "picture": "./pictures/banana.jpg",
+      "pronunciation": "bəˈnæn.ə",
+      "audio": "./sounds/banana.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 3,
+      "name": "Lemon",
+      "picture": "./pictures/lemon.jpg",
+      "pronunciation": "ˈlem.ən",
+      "audio": "./sounds/lemon.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 4,
+      "name": "Pear",
+      "picture": "./pictures/Pear.jpg",
+      "pronunciation": "peər",
+      "audio": "./sounds/apple.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 5,
+      "name": "Grapes",
+      "picture": "./pictures/grapes.jpg",
+      "pronunciation": "ɡreɪps",
+      "audio": "./sounds/grapes.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 6,
+      "name": "Cherry",
+      "picture": "./pictures/cherry.jpg",
+      "pronunciation": "ˈʧɛr.i",
+      "audio": "./sounds/cherry.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 7,
+      "name": "Blueberry",
+      "picture": "./pictures/blueberry.jpg",
+      "pronunciation": "ˈbluːˌber.i",
+      "audio": "./sounds/blueberry.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 8,
+      "name": "Blackberry",
+      "picture": "./pictures/blackberry.jpg",
+      "pronunciation": "ˈblækˌber.i",
+      "audio": "./sounds/blackberry.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 9,
+      "name": "Raspberry",
+      "picture": "./pictures/raspberry.jpg",
+      "pronunciation": "ˈræzˌber.i",
+      "audio": "./sounds/raspberry.mp3",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 10,
+      "name": "Watermelon",
+      "picture": "./pictures/watermelon.jpg",
+      "pronunciation": "ˈwɔː.tərˌmel.ən",
+      "audio": "./sounds/watermelon.mp3",
+      "visible": false,
+      "matched": false
+    }
+  ],
+  "testResults": []
+}

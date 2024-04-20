@@ -1,5 +1,5 @@
 const { FlashCardDAO } = require("../flashcard/flashcard.model");
-const database = require("../../database/database");
+const { database } = require("../../database/database");
 const fs = require("fs");
 const path = require("path");
 const Ajv = require("ajv");
