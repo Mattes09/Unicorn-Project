@@ -1,5 +1,5 @@
 const { FlashCardDAO } = require("../flashcard/flashcard.model");
-const { database } = require("../../database/database");
+const { database, saveDatabase } = require("../../database/database");
 const fs = require("fs");
 const path = require("path");
 const Ajv = require("ajv");
@@ -27,22 +27,9 @@ const answersSchema = {
 const validate = ajv.compile(answersSchema);
 
 const saveTestResults = (testResult) => {
-  const filePath = path.join(__dirname, "../../database/testResults.json");
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.error("Error reading file", err);
-      return;
-    }
-    const results = JSON.parse(data);
-    results.push(testResult);
-    fs.writeFile(filePath, JSON.stringify(results, null, 2), (err) => {
-      if (err) {
-        console.error("Error writing file", err);
-        return;
-      }
-      console.log("Test result saved.");
-    });
-  });
+  database.testResults.push(testResult);
+
+  saveDatabase();
 };
 
 const TestService = {
