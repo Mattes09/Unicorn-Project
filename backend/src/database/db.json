@@ -24,7 +24,8 @@
       "role": "user",
       "email": "usr@test.com",
       "favorites": [
-        1
+        1,
+        112
       ]
     },
     {
@@ -37,31 +38,11 @@
   ],
   "flashcards": [
     {
-      "id": 10,
-      "name": "Watermelon",
-      "picture": "./pictures/watermelon.jpg",
-      "pronunciation": "ˈwɔː.tərˌmel.ən",
-      "audio": "./sounds/watermelon.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 2,
-      "name": "Banana",
-      "picture": "./pictures/banana.jpg",
-      "pronunciation": "bəˈnæn.ə",
-      "audio": "./sounds/banana.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 7,
-      "name": "Blueberry",
-      "picture": "./pictures/blueberry.jpg",
-      "pronunciation": "ˈbluːˌber.i",
-      "audio": "./sounds/blueberry.mp3",
+      "id": 8,
+      "name": "Blackberry",
+      "picture": "./pictures/blackberry.jpg",
+      "pronunciation": "ˈblækˌber.i",
+      "audio": "./sounds/blackberry.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
@@ -77,41 +58,41 @@
       "matched": false
     },
     {
-      "id": 4,
-      "name": "Pear",
-      "picture": "./pictures/Pear.jpg",
-      "pronunciation": "peər",
+      "id": 3,
+      "name": "Lemon",
+      "picture": "./pictures/lemon.jpg",
+      "pronunciation": "ˈlem.ən",
+      "audio": "./sounds/lemon.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 2,
+      "name": "Banana",
+      "picture": "./pictures/banana.jpg",
+      "pronunciation": "bəˈnæn.ə",
+      "audio": "./sounds/banana.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 1,
+      "name": "Apple",
+      "picture": "./pictures/apple.jpg",
+      "pronunciation": "ˈæp.əl",
       "audio": "./sounds/apple.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
     },
     {
-      "id": 8,
-      "name": "Blackberry",
-      "picture": "./pictures/blackberry.jpg",
-      "pronunciation": "ˈblækˌber.i",
-      "audio": "./sounds/blackberry.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 9,
-      "name": "Raspberry",
-      "picture": "./pictures/raspberry.jpg",
-      "pronunciation": "ˈræzˌber.i",
-      "audio": "./sounds/raspberry.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 3,
-      "name": "Lemon",
-      "picture": "./pictures/lemon.jpg",
-      "pronunciation": "ˈlem.ən",
-      "audio": "./sounds/lemon.mp3",
+      "id": 4,
+      "name": "Pear",
+      "picture": "./pictures/Pear.jpg",
+      "pronunciation": "peər",
+      "audio": "./sounds/apple.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
@@ -127,11 +108,31 @@
       "matched": false
     },
     {
-      "id": 1,
-      "name": "Apple",
-      "picture": "./pictures/apple.jpg",
-      "pronunciation": "ˈæp.əl",
-      "audio": "./sounds/apple.mp3",
+      "id": 7,
+      "name": "Blueberry",
+      "picture": "./pictures/blueberry.jpg",
+      "pronunciation": "ˈbluːˌber.i",
+      "audio": "./sounds/blueberry.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 10,
+      "name": "Watermelon",
+      "picture": "./pictures/watermelon.jpg",
+      "pronunciation": "ˈwɔː.tərˌmel.ən",
+      "audio": "./sounds/watermelon.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 9,
+      "name": "Raspberry",
+      "picture": "./pictures/raspberry.jpg",
+      "pronunciation": "ˈræzˌber.i",
+      "audio": "./sounds/raspberry.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false

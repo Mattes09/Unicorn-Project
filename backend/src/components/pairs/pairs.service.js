@@ -42,7 +42,7 @@ const PairsService = {
     const validate = ajv.compile(matchSchema);
     const valid = validate(req.body);
     if (!valid) {
-      return res.status(400).send({ erros: validate.errors });
+      return res.status(400).send({ errors: validate.errors });
     }
     const { id1, id2 } = req.body;
     const flashcardDao = new FlashCardDAO(database);

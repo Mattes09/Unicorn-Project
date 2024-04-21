@@ -49,7 +49,7 @@ const MultipleChoiceService = {
     const questionCard = flashcardDao.getFlashCard(questionId);
 
     if (!questionCard) {
-      return resp.status(400).send({ error: "Question not found" });
+      return resp.status(404).send({ error: "Question not found" });
     }
 
     const isCorrect = chosenAnswer === questionCard.name;
