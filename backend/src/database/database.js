@@ -17,28 +17,32 @@ const database = {
       "Apple",
       "./pictures/apple.jpg",
       "ˈæp.əl",
-      "./sounds/apple.mp3"
+      "./sounds/apple.mp3",
+      "Fruits"
     ),
     new FlashCard(
       2,
       "Banana",
       "./pictures/banana.jpg",
       "bəˈnæn.ə",
-      "./sounds/banana.mp3"
+      "./sounds/banana.mp3",
+      "Fruits"
     ),
     new FlashCard(
       3,
       "Lemon",
       "./pictures/lemon.jpg",
       "ˈlem.ən",
-      "./sounds/lemon.mp3"
+      "./sounds/lemon.mp3",
+      "Fruits"
     ),
     new FlashCard(
       4,
       "Pear",
       "./pictures/Pear.jpg",
       "peər",
-      "./sounds/apple.mp3"
+      "./sounds/apple.mp3",
+      "Fruits"
     ),
 
     new FlashCard(
@@ -46,35 +50,40 @@ const database = {
       "Grapes",
       "./pictures/grapes.jpg",
       "ɡreɪps",
-      "./sounds/grapes.mp3"
+      "./sounds/grapes.mp3",
+      "Fruits"
     ),
     new FlashCard(
       6,
       "Cherry",
       "./pictures/cherry.jpg",
       "ˈʧɛr.i",
-      "./sounds/cherry.mp3"
+      "./sounds/cherry.mp3",
+      "Fruits"
     ),
     new FlashCard(
       7,
       "Blueberry",
       "./pictures/blueberry.jpg",
       "ˈbluːˌber.i",
-      "./sounds/blueberry.mp3"
+      "./sounds/blueberry.mp3",
+      "Fruits"
     ),
     new FlashCard(
       8,
       "Blackberry",
       "./pictures/blackberry.jpg",
       "ˈblækˌber.i",
-      "./sounds/blackberry.mp3"
+      "./sounds/blackberry.mp3",
+      "Fruits"
     ),
     new FlashCard(
       9,
       "Raspberry",
       "./pictures/raspberry.jpg",
       "ˈræzˌber.i",
-      "./sounds/raspberry.mp3"
+      "./sounds/raspberry.mp3",
+      "Fruits"
     ),
 
     new FlashCard(
@@ -82,12 +91,14 @@ const database = {
       "Watermelon",
       "./pictures/watermelon.jpg",
       "ˈwɔː.tərˌmel.ən",
-      "./sounds/watermelon.mp3"
+      "./sounds/watermelon.mp3",
+      "Fruits"
     ),
   ],
 
   testResults: [],
 };
+saveDatabase();
 
 function saveDatabase() {
   fs.writeFileSync(filePath, JSON.stringify(database, null, 2), "utf8");
@@ -119,7 +130,8 @@ function loadDatabase() {
               fc.name,
               fc.picture,
               fc.pronunciation,
-              fc.audio
+              fc.audio,
+              fc.theme || "Unknown"
             )
         );
       }

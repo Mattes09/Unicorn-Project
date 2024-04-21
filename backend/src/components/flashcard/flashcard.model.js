@@ -1,10 +1,11 @@
 class FlashCard {
-  constructor(id, name, picture, pronunciation, audio) {
+  constructor(id, name, picture, pronunciation, audio, theme) {
     this.id = id;
     this.name = name;
     this.picture = picture;
     this.pronunciation = pronunciation;
     this.audio = audio;
+    this.theme = theme;
     this.visible = false;
     this.matched = false;
   }
@@ -13,6 +14,10 @@ class FlashCard {
 class FlashCardDAO {
   constructor(databaseConnection) {
     this.database = databaseConnection;
+  }
+
+  getFlashCardByTheme(theme) {
+    return this.database.flashcards.filter((fc) => fc.theme === theme);
   }
 
   getFlashCard(id) {

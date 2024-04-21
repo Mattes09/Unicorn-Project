@@ -14,6 +14,20 @@ const getFlashCardSchema = {
 };
 
 const FlashcardService = {
+  getFlashCardsByTheme: (req, res) => {
+    const theme = req.params.theme;
+    const flashcardDao = new FlashCardDAO(database);
+    const flashcards = flashcardDao.getFlashCardByTheme(theme);
+
+    if (flashcards.length === 0) {
+      return res
+        .status(404)
+        .send({ error: "No flashcards found for this theme" });
+    }
+
+    res.send(flashcards);
+  },
+
   getFlashcard: (req, res) => {
     const validate = ajv.compile(getFlashCardSchema);
     const valid = validate({ id: parseInt(req.params.id) });
