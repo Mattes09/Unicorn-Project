@@ -5,7 +5,11 @@
       "name": "Daniel",
       "role": "admin",
       "email": "email@seznam.cz",
-      "favorites": []
+      "favorites": [
+        9,
+        4,
+        1
+      ]
     },
     {
       "id": 2,
@@ -19,16 +23,25 @@
       "name": "Rumburak",
       "role": "user",
       "email": "usr@test.com",
+      "favorites": [
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dumbledore",
+      "role": "user",
+      "email": "no@email.com",
       "favorites": []
     }
   ],
   "flashcards": [
     {
-      "id": 1,
-      "name": "Apple",
-      "picture": "./pictures/apple.jpg",
-      "pronunciation": "ˈæp.əl",
-      "audio": "./sounds/apple.mp3",
+      "id": 10,
+      "name": "Watermelon",
+      "picture": "./pictures/watermelon.jpg",
+      "pronunciation": "ˈwɔː.tərˌmel.ən",
+      "audio": "./sounds/watermelon.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
@@ -44,31 +57,11 @@
       "matched": false
     },
     {
-      "id": 3,
-      "name": "Lemon",
-      "picture": "./pictures/lemon.jpg",
-      "pronunciation": "ˈlem.ən",
-      "audio": "./sounds/lemon.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 4,
-      "name": "Pear",
-      "picture": "./pictures/Pear.jpg",
-      "pronunciation": "peər",
-      "audio": "./sounds/apple.mp3",
-      "theme": "Fruits",
-      "visible": false,
-      "matched": false
-    },
-    {
-      "id": 5,
-      "name": "Grapes",
-      "picture": "./pictures/grapes.jpg",
-      "pronunciation": "ɡreɪps",
-      "audio": "./sounds/grapes.mp3",
+      "id": 7,
+      "name": "Blueberry",
+      "picture": "./pictures/blueberry.jpg",
+      "pronunciation": "ˈbluːˌber.i",
+      "audio": "./sounds/blueberry.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
@@ -84,11 +77,11 @@
       "matched": false
     },
     {
-      "id": 7,
-      "name": "Blueberry",
-      "picture": "./pictures/blueberry.jpg",
-      "pronunciation": "ˈbluːˌber.i",
-      "audio": "./sounds/blueberry.mp3",
+      "id": 4,
+      "name": "Pear",
+      "picture": "./pictures/Pear.jpg",
+      "pronunciation": "peər",
+      "audio": "./sounds/apple.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
@@ -114,15 +107,140 @@
       "matched": false
     },
     {
-      "id": 10,
-      "name": "Watermelon",
-      "picture": "./pictures/watermelon.jpg",
-      "pronunciation": "ˈwɔː.tərˌmel.ən",
-      "audio": "./sounds/watermelon.mp3",
+      "id": 3,
+      "name": "Lemon",
+      "picture": "./pictures/lemon.jpg",
+      "pronunciation": "ˈlem.ən",
+      "audio": "./sounds/lemon.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 5,
+      "name": "Grapes",
+      "picture": "./pictures/grapes.jpg",
+      "pronunciation": "ɡreɪps",
+      "audio": "./sounds/grapes.mp3",
+      "theme": "Fruits",
+      "visible": false,
+      "matched": false
+    },
+    {
+      "id": 1,
+      "name": "Apple",
+      "picture": "./pictures/apple.jpg",
+      "pronunciation": "ˈæp.əl",
+      "audio": "./sounds/apple.mp3",
       "theme": "Fruits",
       "visible": false,
       "matched": false
     }
   ],
-  "testResults": []
+  "testResults": [
+    {
+      "dateTaken": "2024-04-21T14:06:14.285Z",
+      "correctAnswers": 2,
+      "incorrectAnswers": 1,
+      "successRate": 66.66666666666666,
+      "details": [
+        {
+          "questionId": 1,
+          "correctAnswer": "Apple",
+          "userAnswer": "apple",
+          "isCorrect": true
+        },
+        {
+          "questionId": 2,
+          "correctAnswer": "Banana",
+          "userAnswer": "banana",
+          "isCorrect": true
+        },
+        {
+          "questionId": 3,
+          "correctAnswer": "Lemon",
+          "userAnswer": "cherry",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "dateTaken": "2024-04-21T14:06:14.285Z",
+      "correctAnswers": 2,
+      "incorrectAnswers": 1,
+      "successRate": 66.66666666666666,
+      "details": [
+        {
+          "questionId": 1,
+          "correctAnswer": "Apple",
+          "userAnswer": "apple",
+          "isCorrect": true
+        },
+        {
+          "questionId": 2,
+          "correctAnswer": "Banana",
+          "userAnswer": "banana",
+          "isCorrect": true
+        },
+        {
+          "questionId": 3,
+          "correctAnswer": "Lemon",
+          "userAnswer": "cherry",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "dateTaken": "2024-04-21T14:06:14.993Z",
+      "correctAnswers": 2,
+      "incorrectAnswers": 1,
+      "successRate": 66.66666666666666,
+      "details": [
+        {
+          "questionId": 1,
+          "correctAnswer": "Apple",
+          "userAnswer": "apple",
+          "isCorrect": true
+        },
+        {
+          "questionId": 2,
+          "correctAnswer": "Banana",
+          "userAnswer": "banana",
+          "isCorrect": true
+        },
+        {
+          "questionId": 3,
+          "correctAnswer": "Lemon",
+          "userAnswer": "cherry",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "dateTaken": "2024-04-21T14:06:14.993Z",
+      "correctAnswers": 2,
+      "incorrectAnswers": 1,
+      "successRate": 66.66666666666666,
+      "details": [
+        {
+          "questionId": 1,
+          "correctAnswer": "Apple",
+          "userAnswer": "apple",
+          "isCorrect": true
+        },
+        {
+          "questionId": 2,
+          "correctAnswer": "Banana",
+          "userAnswer": "banana",
+          "isCorrect": true
+        },
+        {
+          "questionId": 3,
+          "correctAnswer": "Lemon",
+          "userAnswer": "cherry",
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
 }

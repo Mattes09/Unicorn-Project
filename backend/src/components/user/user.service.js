@@ -24,7 +24,6 @@ const UserService = {
 
     const userId = parseInt(req.params.id);
     const userDao = new UserDAO(database);
-    console.log("Database at service call:", database);
 
     const foundUser = userDao.getUser(userId);
     if (!foundUser) {
@@ -39,7 +38,9 @@ const UserService = {
   listAllUsers: (req, res) => {
     const userDao = new UserDAO(database);
     const users = userDao.getAllUsers();
-    if (!users) {
+    console.log("Users being returned:", users);
+
+    if (!users || users.length === 0) {
       res.status(404).send({ error: "No users found" });
     }
     res.send({ users: users });

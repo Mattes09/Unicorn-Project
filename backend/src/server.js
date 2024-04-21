@@ -7,9 +7,6 @@ const pairsRouter = require("./components/pairs/pairs.routes");
 const jumbledLettersRouter = require("./components/jumbled_letters/jumbled_letters.routes");
 const multipleChoiceRouter = require("./components/multiple_choice/multiple_choice.routes");
 const testRouter = require("./components/test/test.routes");
-const { database, saveDatabase, loadDatabase } = require("./database/database");
-
-saveDatabase();
 
 const PORT = 3000;
 const app = express();

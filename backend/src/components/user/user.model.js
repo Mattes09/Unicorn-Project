@@ -1,10 +1,10 @@
 class User {
-  constructor(id, name, role, email) {
+  constructor(id, name, role, email, favorites = []) {
     this.id = id;
     this.name = name;
     this.role = role;
     this.email = email;
-    this.favorites = [];
+    this.favorites = favorites;
   }
 
   addFavorite(flashcardId) {
@@ -22,7 +22,6 @@ class UserDAO {
   constructor(databaseConnection) {
     // Design pattern DEPENDENCY INJECTION
     this.database = databaseConnection;
-    console.log("Database structure in DAO:", this.database);
   }
 
   getUser(id) {
@@ -30,7 +29,6 @@ class UserDAO {
   }
 
   getAllUsers() {
-    console.log("Users in database :", this.database.users);
     return this.database.users;
   }
 
@@ -38,7 +36,8 @@ class UserDAO {
     const user = this.getUser(userId);
     if (user) {
       user.addFavorite(flashcardId);
-      this.database.saveDatabase;
+      const { saveDatabase } = require("../../database/database");
+      saveDatabase();
       return user;
     }
     return null;
@@ -48,7 +47,8 @@ class UserDAO {
     const user = this.getUser(userId);
     if (user) {
       user.removeFavorite(flashcardID);
-      this.database.saveDatabase;
+      const { saveDatabase } = require("../../database/database");
+      saveDatabase();
       return user;
     }
     return null;
