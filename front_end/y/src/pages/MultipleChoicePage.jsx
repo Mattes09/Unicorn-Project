@@ -1,69 +1,117 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, Button } from "@mui/material";
-import { getItems } from "../api";
+import {
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardMedia,
+  CardContent,
+  Grid,
+  IconButton,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const MultipleChoicePage = () => {
-  const [cards, setCards] = useState([]);
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [options, setOptions] = useState([]);
-  const [score, setScore] = useState(0);
+  const navigate = useNavigate();
+  const [question, setQuestion] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [attempts, setAttempts] = useState(0); // Track the number of attempts for the current question
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getItems();
-      setCards(data);
-      generateOptions(data[0], data);
-    };
-    fetchData();
+    fetchQuestion();
   }, []);
 
-  const generateOptions = (correctCard, allCards) => {
-    const options = [correctCard];
-    while (options.length < 4) {
-      const randomCard = allCards[Math.floor(Math.random() * allCards.length)];
-      if (!options.some((card) => card.id === randomCard.id)) {
-        options.push(randomCard);
-      }
+  const fetchQuestion = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/multiple-choice/question"
+      );
+      setQuestion(response.data);
+      setFeedback("");
+      setSelectedAnswer("");
+      setAttempts(0); // Reset attempts whenever a new question is fetched
+    } catch (error) {
+      console.error("Error fetching question:", error);
     }
-    setOptions(options.sort(() => Math.random() - 0.5));
   };
 
-  const handleOptionClick = (option) => {
-    if (option.id === cards[currentCardIndex].id) {
-      setScore(score + 1);
-    }
-    const nextIndex = currentCardIndex + 1;
-    if (nextIndex < cards.length) {
-      setCurrentCardIndex(nextIndex);
-      generateOptions(cards[nextIndex], cards);
-    } else {
-      alert(`Well done! Your score is ${score + 1}`);
+  const handleAnswer = async (answer) => {
+    setSelectedAnswer(answer);
+    setAttempts(attempts + 1); // Increment attempts
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/multiple-choice/submit",
+        {
+          questionId: question.id,
+          chosenAnswer: answer,
+        }
+      );
+      if (response.data.isCorrect) {
+        setFeedback("Correct!");
+        setTimeout(() => {
+          fetchQuestion();
+        }, 2000);
+      } else {
+        setFeedback("Incorrect, try again!");
+        if (attempts >= 2) {
+          // Allow 3 attempts
+          setTimeout(() => {
+            fetchQuestion(); // Move to next question after 3 incorrect attempts
+          }, 2000);
+        }
+      }
+    } catch (error) {
+      console.error("Error submitting answer:", error);
     }
   };
+
+  if (!question) {
+    return <Typography>Loading...</Typography>;
+  }
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      padding={4}
-    >
-      <Typography variant="h2" gutterBottom>
-        Multiple Choice
+    <Box padding={3} sx={{ maxWidth: 500, margin: "auto" }}>
+      <IconButton onClick={() => navigate("/")} sx={{ marginBottom: 2 }}>
+        <ArrowBackIcon />
+      </IconButton>
+      <Typography variant="h4" gutterBottom>
+        Guess the word for the image!
       </Typography>
-      <Grid container spacing={2} justifyContent="center">
-        {options.map((option) => (
-          <Grid item key={option.id}>
+      <Card>
+        <CardMedia
+          component="img"
+          image={`http://localhost:3000${question.picture}`}
+          alt="Question Image"
+          sx={{ height: 260 }}
+        />
+        <CardContent>
+          {question.choices.map((choice, index) => (
             <Button
+              key={index}
               variant="contained"
-              onClick={() => handleOptionClick(option)}
+              color={selectedAnswer === choice ? "primary" : "secondary"}
+              onClick={() => handleAnswer(choice)}
+              sx={{ margin: 1 }}
+              disabled={feedback && attempts >= 3} // Disable buttons after 3 attempts or when moving to the next question
             >
-              {option.word}
+              {choice}
             </Button>
-          </Grid>
-        ))}
-      </Grid>
+          ))}
+        </CardContent>
+      </Card>
+      {feedback && (
+        <Typography
+          variant="h6"
+          color={feedback === "Correct!" ? "green" : "red"}
+          sx={{ mt: 2 }}
+        >
+          {feedback}
+        </Typography>
+      )}
     </Box>
   );
 };

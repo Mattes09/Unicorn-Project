@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, IconButton } from "@mui/material";
 import Flashcard from "../components/Flashcard";
 import { getFlashcards } from "../api";
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const FlashcardsPage = () => {
+  const navigate = useNavigate();
   const [flashcards, setFlashcards] = useState([]);
 
   useEffect(() => {
@@ -22,6 +25,10 @@ const FlashcardsPage = () => {
       justifyContent="center"
       padding={4}
     >
+      <IconButton onClick={() => navigate("/")} sx={{ marginBottom: 2 }}>
+        <ArrowBackIcon />
+      </IconButton>
+
       <Typography variant="h2" gutterBottom>
         Flashcards
       </Typography>

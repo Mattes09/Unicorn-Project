@@ -1,45 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { getItems } from "../api";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
 
-const shuffleWord = (word) => {
-  return word
-    .split("")
-    .sort(() => Math.random() - 0.5)
-    .join("");
-};
+const BASE_URL = "http://localhost:3000"; // Adjust according to your setup
 
 const JumbledLettersPage = () => {
-  const [cards, setCards] = useState([]);
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [shuffledWord, setShuffledWord] = useState("");
+  const navigate = useNavigate();
+  const [card, setCard] = useState(null);
   const [userInput, setUserInput] = useState("");
-  const [score, setScore] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getItems();
-      setCards(data);
-      setShuffledWord(shuffleWord(data[0].word));
-    };
-    fetchData();
+    fetchCard();
   }, []);
 
-  const handleCheck = () => {
-    if (
-      userInput.toLowerCase() === cards[currentCardIndex].word.toLowerCase()
-    ) {
-      setScore(score + 1);
+  const fetchCard = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/jumbled-letters/card`);
+      setCard(response.data);
       setUserInput("");
-      const nextIndex = currentCardIndex + 1;
-      if (nextIndex < cards.length) {
-        setCurrentCardIndex(nextIndex);
-        setShuffledWord(shuffleWord(cards[nextIndex].word));
+      setMessage("");
+    } catch (error) {
+      console.error("Error fetching jumbled word:", error);
+      setMessage("Failed to fetch a new word. Please try again.");
+    }
+  };
+
+  const handleCheck = async () => {
+    if (!card) return;
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/jumbled-letters/check-answer`,
+        {
+          id: card.id,
+          userAnswer: userInput,
+        }
+      );
+      if (response.data.isCorrect) {
+        setMessage("Correct! Well done!");
+        fetchCard(); // Fetch a new card
       } else {
-        alert(`Well done! Your score is ${score + 1}`);
+        setMessage("Incorrect, try again!");
       }
-    } else {
-      alert("Try again!");
+    } catch (error) {
+      console.error("Error checking answer:", error);
+      setMessage("Error checking the answer. Please try again.");
     }
   };
 
@@ -51,18 +66,38 @@ const JumbledLettersPage = () => {
       justifyContent="center"
       padding={4}
     >
+      <IconButton onClick={() => navigate("/")} sx={{ marginBottom: 2 }}>
+        <ArrowBackIcon />
+      </IconButton>
       <Typography variant="h2" gutterBottom>
         Jumbled Letters
       </Typography>
-      <Typography variant="h4">{shuffledWord}</Typography>
+      {card && (
+        <Box textAlign="center">
+          <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              component="img"
+              image={`${BASE_URL}${card.picture}`}
+              alt={card.name}
+              sx={{ height: 140, objectFit: "contain" }}
+            />
+          </Card>
+          <Typography variant="h4">{card.scrambleWord}</Typography>
+        </Box>
+      )}
       <TextField
         label="Guess the word"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
+        margin="normal"
+        fullWidth
       />
-      <Button variant="contained" onClick={handleCheck}>
+      <Button variant="contained" onClick={handleCheck} sx={{ mt: 2 }}>
         Check
       </Button>
+      <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 2 }}>
+        {message}
+      </Typography>
     </Box>
   );
 };

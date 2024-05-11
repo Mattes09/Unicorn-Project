@@ -1,60 +1,124 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { getItems } from "../api";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:3000";
 
 const TestPage = () => {
-  const [cards, setCards] = useState([]);
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [userInput, setUserInput] = useState("");
-  const [score, setScore] = useState(0);
+  const navigate = useNavigate();
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [userAnswer, setUserAnswer] = useState("");
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getItems();
-      setCards(data);
-    };
-    fetchData();
+    axios
+      .get(`${BASE_URL}/test/questions`)
+      .then((response) => {
+        setCurrentQuestion(response.data[0]); // Assuming you're fetching multiple and using the first.
+        console.log(response.data[0]); // Log to see what data is being received
+      })
+      .catch((err) => console.error("Error fetching test questions:", err));
   }, []);
 
-  const handleCheck = () => {
-    if (
-      userInput.toLowerCase() === cards[currentCardIndex].word.toLowerCase()
-    ) {
-      setScore(score + 1);
-      setUserInput("");
-      const nextIndex = currentCardIndex + 1;
-      if (nextIndex < cards.length) {
-        setCurrentCardIndex(nextIndex);
+  const fetchQuestion = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/test/questions`);
+      if (response.data.length > 0) {
+        setCurrentQuestion(response.data[0]);
       } else {
-        alert(`Well done! Your score is ${score + 1}`);
+        setCurrentQuestion(null); // Handle no questions returned
+        console.error("No questions available.");
       }
-    } else {
-      alert("Try again!");
+      setUserAnswer(""); // Reset user answer for new question
+    } catch (error) {
+      console.error("Error fetching question:", error);
+    }
+  };
+
+  const handleSubmitAnswer = async () => {
+    if (!currentQuestion || userAnswer.trim() === "") return;
+
+    const payload = {
+      answers: [
+        {
+          id: currentQuestion.id,
+          userAnswer: userAnswer,
+        },
+      ],
+    };
+
+    try {
+      const response = await axios.post(`${BASE_URL}/test/submit`, payload);
+      setResults((prev) => [
+        ...prev,
+        response.data.results
+          .map((result) => (result.isCorrect ? "Correct" : "Incorrect"))
+          .join(", "),
+      ]);
+      fetchQuestion(); // Fetch next question or handle completion
+    } catch (error) {
+      console.error(
+        "Error submitting answer:",
+        error.response ? error.response.data : error
+      );
     }
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      padding={4}
-    >
-      <Typography variant="h2" gutterBottom>
+    <Box padding={3} sx={{ maxWidth: 600, mx: "auto" }}>
+      <IconButton
+        onClick={() => navigate("/")}
+        sx={{
+          marginBottom: 2,
+          color: (theme) => (theme.palette.mode === "dark" ? "white" : "black"),
+        }}
+      >
+        <ArrowBackIcon />
+      </IconButton>
+      <Typography variant="h4" gutterBottom>
         Test Your Knowledge
       </Typography>
-      {cards[currentCardIndex] && (
+
+      {currentQuestion && (
         <>
-          <Typography variant="h4">{cards[currentCardIndex].word}</Typography>
+          <Card>
+            <CardMedia
+              component="img"
+              image={`${BASE_URL}${currentQuestion.picture}`}
+              alt="Test Image"
+              sx={{ height: 300, width: "100%" }}
+            />
+          </Card>
           <TextField
-            label="Guess the word"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
+            fullWidth
+            label="Type your answer"
+            variant="outlined"
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+            margin="normal"
           />
-          <Button variant="contained" onClick={handleCheck}>
-            Check
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmitAnswer}
+          >
+            Submit Answer
           </Button>
+          {results.length > 0 && (
+            <Typography sx={{ mt: 2 }}>
+              Results: {results.join(", ")}
+            </Typography>
+          )}
         </>
       )}
     </Box>
