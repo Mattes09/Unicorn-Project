@@ -26,15 +26,26 @@ const PairsService = {
     const allCards = flashcardDao.listAllFlashCards();
     shuffleArray(allCards);
 
-    let getGameCards = allCards.slice(0, 10).map((card) => ({
-      ...card,
-      visible: false,
-      matched: false,
-    }));
+    // Select only 10 unique cards and create two variants for each: one as an image, one as a word.
+    let selectedCards = allCards.slice(0, 10);
+    let getGameCards = selectedCards.flatMap((card) => [
+      {
+        ...card,
+        type: "image",
+        matched: false,
+        visible: false,
+        content: card.picture.toLowerCase(),
+      },
+      {
+        ...card,
+        type: "word",
+        matched: false,
+        visible: false,
+        content: card.name,
+      },
+    ]);
 
-    getGameCards = [...getGameCards, ...getGameCards];
-    shuffleArray(getGameCards);
-
+    shuffleArray(getGameCards); // Shuffle to mix words and images
     res.send({ getGameCards });
   },
 
@@ -45,15 +56,11 @@ const PairsService = {
       return res.status(400).send({ errors: validate.errors });
     }
     const { id1, id2 } = req.body;
-    const flashcardDao = new FlashCardDAO(database);
-    const card1 = flashcardDao.getFlashCard(id1);
-    const card2 = flashcardDao.getFlashCard(id2);
+    const card1 = database.flashcards.find((card) => card.id === id1);
+    const card2 = database.flashcards.find((card) => card.id === id2);
 
-    if (!card1 || !card2) {
-      return res.status(404).send({ error: "One or both cards not found" });
-    }
-
-    const isMatch = card1.id === card2.id;
+    // Match is valid if names of the cards (content) are the same
+    const isMatch = card1.name === card2.name;
     res.send({ isMatch });
   },
 };

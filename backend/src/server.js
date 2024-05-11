@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const userRouter = require("./components/user/user.routes");
 const flashcardRouter = require("./components/flashcard/flashcard.routes");
@@ -14,6 +15,8 @@ const app = express();
 app.use(express.json()); //application json support
 app.use(express.urlencoded({ extended: true })); //support for application/x-www-form-urlencoded
 app.use(cors()); //Cross-Origin Resource Sharing, managing requests from different domains
+
+app.use("/assets", express.static(path.join(__dirname, "..", "assets")));
 
 app.use("/users", userRouter);
 app.use("/flashcards", flashcardRouter);
