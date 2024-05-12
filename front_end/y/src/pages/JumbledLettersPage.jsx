@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000"; // Adjust according to your setup
+const BASE_URL = "http://localhost:3000";
 
 const JumbledLettersPage = () => {
   const navigate = useNavigate();

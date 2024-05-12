@@ -8,5 +8,6 @@ userRouter.get("/:id", UserService.getUser);
 userRouter.get("/", UserService.listAllUsers);
 userRouter.post("/:userId/favorites", UserService.addFavorite);
 userRouter.delete("/:userId/favorites", UserService.removeFavorite);
+userRouter.get("/:userId/favorites", UserService.getUserFavorites);
 
 module.exports = userRouter;

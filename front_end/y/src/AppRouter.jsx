@@ -8,6 +8,7 @@ import PairsPage from "./pages/PairsPage.jsx";
 import JumbledLettersPage from "./pages/JumbledLettersPage.jsx";
 import MultipleChoicePage from "./pages/MultipleChoicePage.jsx";
 import TestPage from "./pages/TestPage.jsx";
+import FavoritesPage from "./pages/FavoritesPage.jsx";
 
 const theme = createTheme({
   palette: {
@@ -28,6 +29,7 @@ export function AppRouter() {
           <Route path="/jumbled-letters" element={<JumbledLettersPage />} />
           <Route path="/multiple-choice" element={<MultipleChoicePage />} />
           <Route path="/test" element={<TestPage />} />
+          <Route path="/favorites/:userId" element={<FavoritesPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

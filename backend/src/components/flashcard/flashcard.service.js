@@ -53,4 +53,39 @@ const FlashcardService = {
   },
 };
 
+const getMultipleFlashcardsSchema = {
+  type: "object",
+  properties: {
+    ids: {
+      type: "array",
+      items: { type: "integer" },
+    },
+  },
+  required: ["ids"],
+  additionalProperties: false,
+};
+
+const validateMultiple = ajv.compile(getMultipleFlashcardsSchema);
+
+FlashcardService.getMultipleFlashcards = (req, res) => {
+  const validation = validateMultiple(req.body);
+  if (!validation) {
+    return res.status(400).send({ errors: validateMultiple.errors });
+  }
+
+  const ids = req.body.ids;
+  const flashcardDao = new FlashCardDAO(database);
+  const flashcards = ids
+    .map((id) => flashcardDao.getFlashCard(id))
+    .filter((fc) => fc != null);
+
+  if (flashcards.length === 0) {
+    return res
+      .status(404)
+      .send({ error: "No flashcards found for the provided IDs" });
+  }
+
+  res.send({ flashcards });
+};
+
 module.exports = { FlashcardService };

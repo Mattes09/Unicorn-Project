@@ -74,6 +74,27 @@ const UserService = {
 
     res.status(200).send({ message: "Favorite removed", user: user });
   },
+
+  getUserFavorites: (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const user = new UserDAO(database).getUser(userId);
+
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    const favorites = user.favorites
+      .map((favId) => {
+        return database.flashcards.find((fc) => fc.id === favId);
+      })
+      .filter((fc) => fc); // Ensure all favorites found
+
+    if (!favorites.length) {
+      return res.status(404).send({ error: "No favorites found" });
+    }
+
+    res.send({ favorites });
+  },
 };
 
 module.exports = {

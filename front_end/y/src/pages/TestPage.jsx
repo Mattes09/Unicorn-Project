@@ -24,8 +24,8 @@ const TestPage = () => {
     axios
       .get(`${BASE_URL}/test/questions`)
       .then((response) => {
-        setCurrentQuestion(response.data[0]); // Assuming you're fetching multiple and using the first.
-        console.log(response.data[0]); // Log to see what data is being received
+        setCurrentQuestion(response.data[0]);
+        console.log(response.data[0]);
       })
       .catch((err) => console.error("Error fetching test questions:", err));
   }, []);
